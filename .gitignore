@@ -1,0 +1,25 @@
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# IDE / Editor configuration
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating System specific
+.DS_Store
+Thumbs.db
+
+# Flask session / instances
+instance/
+.webassets-cache
