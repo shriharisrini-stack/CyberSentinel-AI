@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CyberSentinel AI — Mini Project Report</title>
+    <style>
+        /* ==========================================================================
+           Anna University / B.Tech Project Report Print Stylesheet
+           Standard: A4, 1.5 Line Spacing, Times New Roman, Formal Academic Layout
+           ========================================================================== */
+        @page {
+            size: A4 portrait;
+            margin: 25mm 20mm 25mm 25mm; /* 1 inch top/bottom/right, 1.25 inch left for binding */
+            @bottom-center {
+                content: counter(page);
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 11pt;
+            }
+        }
+
+        @media print {
+            body {
+                background: none;
+                margin: 0;
+                padding: 0;
+            }
+            .page-break {
+                page-break-after: always;
+                break-after: page;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .report-page {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                min-height: auto !important;
+            }
+        }
+
+        /* Screen Preview Styling */
+        body {
+            background-color: #525659;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        .report-page {
+            background: #ffffff;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px auto;
+            padding: 25mm 20mm 25mm 25mm;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            position: relative;
+        }
+
+        /* Print Controls Floating Banner */
+        .print-banner {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 1000;
+            background: #0f172a;
+            border: 1px solid #38bdf8;
+            border-radius: 8px;
+            padding: 10px 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .print-btn {
+            background: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            font-family: sans-serif;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .print-btn:hover {
+            background: #0369a1;
+        }
+        .print-hint {
+            color: #94a3b8;
+            font-size: 11px;
+            font-family: sans-serif;
+        }
+
+        /* Typography & Layout */
+        h1, h2, h3, h4 {
+            font-family: 'Times New Roman', Times, serif;
+            color: #000000;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .report-title-main {
+            font-size: 16pt;
+            text-align: center;
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .report-subtitle {
+            font-size: 14pt;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .chapter-heading {
+            font-size: 15pt;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .chapter-title {
+            font-size: 14pt;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .section-heading {
+            font-size: 13pt;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .subsection-heading {
+            font-size: 12pt;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        p {
+            text-align: justify;
+            margin: 0 0 10px 0;
+            text-indent: 2em;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        ul, ol {
+            margin: 0 0 12px 0;
+            padding-left: 2.2em;
+        }
+
+        li {
+            text-align: justify;
+            margin-bottom: 5px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 6px 0;
+            font-size: 10.5pt;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            border: 1px solid #000000;
+            padding: 6px 9px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        td.center, th.center {
+            text-align: center;
+        }
+
+        .table-caption {
+            font-weight: bold;
+            font-size: 10.5pt;
+            text-align: center;
+            margin: 6px 0 14px 0;
+        }
+
+        /* Diagrams & ASCII */
+        pre.diagram {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 8.5pt;
+            line-height: 1.25;
+            background: #fafafa;
+            border: 1px solid #000000;
+            padding: 10px;
+            margin: 12px 0;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        /* Cover & Certificate Elements */
+        .cover-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 247mm;
+            text-align: center;
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px auto;
+            border: 2px solid #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+
+        .signature-table {
+            border: none;
+            margin-top: 35px;
+            margin-bottom: 30px;
+        }
+
+        .signature-table td {
+            border: none;
+            padding: 0;
+            vertical-align: top;
+            width: 50%;
+        }
+
+        .sign-line {
+            font-weight: bold;
+            margin-bottom: 45px;
+        }
+
+        .page-num {
+            position: absolute;
+            bottom: 12mm;
+            right: 20mm;
+            font-size: 11pt;
+        }
+        .page-num-roman {
+            position: absolute;
+            bottom: 12mm;
+            right: 20mm;
+            font-size: 11pt;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Print Control Bar (Hidden when printing/saving to PDF) -->
+    <div class="print-banner no-print">
+        <button class="print-btn" onclick="window.print()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+            Save as PDF / Print
+        </button>
+        <span class="print-hint">In print dialog: Select <strong>"Save as PDF"</strong> &bull; Paper: <strong>A4</strong> &bull; Margins: <strong>Default</strong></span>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 1: TITLE / COVER PAGE
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <div class="cover-container">
+            <div>
+                <div class="logo-placeholder">INSTITUTE<br>LOGO</div>
+                <h1 class="report-title-main" style="margin-top: 15px;">
+                    CYBERSENTINEL AI — EMAIL THREAT DETECTION SYSTEM
+                </h1>
+                <h2 class="report-subtitle">MINI PROJECT REPORT</h2>
+            </div>
+
+            <div>
+                <p class="no-indent" style="text-align: center; font-style: italic; margin-bottom: 15px;">Submitted by</p>
+                <table style="width: 70%; margin: 0 auto; border: none;">
+                    <tr style="border: none;"><td style="border: none; font-weight: bold; font-size: 12pt; text-align: left; padding: 6px;">SHRI HARI S</td><td style="border: none; font-weight: bold; font-size: 12pt; text-align: right; padding: 6px;">(25IT165)</td></tr>
+                    <tr style="border: none;"><td style="border: none; font-weight: bold; font-size: 12pt; text-align: left; padding: 6px;">SIDDHARTH T</td><td style="border: none; font-weight: bold; font-size: 12pt; text-align: right; padding: 6px;">(25IT167)</td></tr>
+                </table>
+            </div>
+
+            <div>
+                <p class="no-indent" style="text-align: center; font-style: italic; margin-bottom: 8px;">
+                    in partial fulfillment for the award of the degree of
+                </p>
+                <h2 style="font-size: 13pt; margin-bottom: 4px;">BACHELOR OF TECHNOLOGY</h2>
+                <p class="no-indent" style="text-align: center; font-weight: bold; margin-bottom: 18px;">in<br>INFORMATION TECHNOLOGY</p>
+                
+                <h2 style="font-size: 13pt; line-height: 1.3; margin-bottom: 4px;">
+                    KPR INSTITUTE OF ENGINEERING AND TECHNOLOGY<br>
+                    <span style="font-size: 11pt; font-weight: normal;">(AUTONOMOUS)</span>
+                </h2>
+                <p class="no-indent" style="text-align: center; font-weight: bold; margin-bottom: 18px;">ARASUR, COIMBATORE – 641 407</p>
+
+                <h2 style="font-size: 13pt; margin-bottom: 4px;">ANNA UNIVERSITY: CHENNAI 600 025</h2>
+                <p class="no-indent" style="text-align: center; font-weight: bold;">OCTOBER 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 2: BONAFIDE CERTIFICATE
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num-roman">ii</span>
+        <h2 style="font-size: 13pt; text-align: center; margin-bottom: 10px;">ANNA UNIVERSITY: CHENNAI 600 025</h2>
+        <h1 style="font-size: 14pt; text-align: center; margin-bottom: 40px; text-decoration: underline;">BONAFIDE CERTIFICATE</h1>
+
+        <p style="line-height: 2; margin-bottom: 40px;">
+            Certified that this project report titled <strong>"CYBERSENTINEL AI — EMAIL THREAT DETECTION SYSTEM"</strong> 
+            is the bonafide work of <strong>“SHRI HARI S (25IT165) AND SIDDHARTH T (25IT167)”</strong> 
+            who carried out the project work under my supervision.
+        </p>
+
+        <table class="signature-table">
+            <tr>
+                <td style="padding-right: 20px;">
+                    <div class="sign-line">SIGNATURE</div>
+                    <strong>Mr. M. ASHOK KUMAR</strong><br>
+                    <strong>SUPERVISOR,</strong><br>
+                    Assistant Professor,<br>
+                    Department of Information Technology,<br>
+                    KPR Institute of Engineering and Technology,<br>
+                    Arasur, Coimbatore – 641 407.
+                </td>
+                <td style="padding-left: 20px;">
+                    <div class="sign-line">SIGNATURE</div>
+                    <strong>Dr. I C AMITHA</strong><br>
+                    <strong>HEAD OF THE DEPARTMENT,</strong><br>
+                    Associate Professor,<br>
+                    Department of Information Technology,<br>
+                    KPR Institute of Engineering and Technology,<br>
+                    Arasur, Coimbatore – 641 407.
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 100px;">
+            <p class="no-indent" style="font-weight: bold;">
+                Submitted for project viva-voce examination conducted on .........................................
+            </p>
+            <div style="display: flex; justify-content: space-between; margin-top: 60px; font-weight: bold;">
+                <span>INTERNAL EXAMINER</span>
+                <span>EXTERNAL EXAMINER</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 3: ABSTRACT
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num-roman">iv</span>
+        <h1 style="font-size: 14pt; text-align: center; margin-bottom: 30px;">ABSTRACT</h1>
+
+        <p>
+            Electronic mail remains the primary conduit for academic, enterprise, and personal communication. 
+            Consequently, it serves as the initial entry vector for over 85% of modern cyber incidents, 
+            principally executed through phishing, Business Email Compromise (BEC), credential harvesting, 
+            and malicious hyperlink redirection. Conventional spam filtering systems operate largely as 
+            opaque black boxes, classifying messages without revealing the underlying indicators of compromise (IoCs). 
+            As a result, students and novice computer users frequently succumb to lookalike domains, deceptive 
+            subdomains, and obfuscated URLs due to a complete absence of transparent, explainable feedback.
+        </p>
+
+        <p>
+            This project presents <strong>CyberSentinel AI — Email Threat Detection System</strong>, a responsive, 
+            explainable web-based security analytics platform developed using Python and the Flask framework. 
+            Users can input sender email addresses and suspicious message bodies into a Security Operations 
+            Center (SOC) telemetry dashboard. The back-end engine applies multi-vector heuristic rules to scrutinize 
+            sender domain reputation, high-risk disposable top-level domains (TLDs), psychological urgency 
+            patterns, and financial coercion tactics.
+        </p>
+
+        <p>
+            Furthermore, the system integrates a <strong>Safe Offline URL Forensic Analyzer</strong> that extracts 
+            hyperlinks and inspects them strictly offline without initiating dangerous external connections. 
+            The engine evaluates direct IPv4 hosts, URL shorteners, brand typosquatting, and subdomain deception. 
+            The platform calculates an explainable, normalized Risk Score (0–100) and maps findings to Safe, 
+            Suspicious, or High Risk tiers, accompanied by granular explanations and actionable remediation steps. 
+            CyberSentinel AI bridges the gap between academic theory and practical defensive cybersecurity for 
+            undergraduate students.
+        </p>
+
+        <p class="no-indent" style="margin-top: 25px;">
+            <strong>Keywords:</strong> Email Threat Detection, Phishing Detection, Heuristic Analysis, URL Forensics, 
+            Explainable Cybersecurity, Social Engineering, Python, Flask.
+        </p>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 4: TABLE OF CONTENTS
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num-roman">v</span>
+        <h1 style="font-size: 14pt; text-align: center; margin-bottom: 25px;">TABLE OF CONTENTS</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Chapter</th>
+                    <th style="width: 70%;">Title</th>
+                    <th style="width: 15%;">Page</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="center"></td><td><strong>Bonafide Certificate</strong></td><td class="center">ii</td></tr>
+                <tr><td class="center"></td><td><strong>Abstract</strong></td><td class="center">iv</td></tr>
+                <tr><td class="center"></td><td><strong>List of Abbreviations</strong></td><td class="center">vii</td></tr>
+                <tr>
+                    <td class="center" rowspan="5"><strong>1</strong></td>
+                    <td><strong>Introduction</strong></td>
+                    <td class="center"><strong>1</strong></td>
+                </tr>
+                <tr><td>1.1: Background</td><td class="center">1</td></tr>
+                <tr><td>1.2: Overview of the Project</td><td class="center">1</td></tr>
+                <tr><td>1.3: Need for the Project</td><td class="center">1</td></tr>
+                <tr><td>1.4: Scope of the Project</td><td class="center">1</td></tr>
+                <tr>
+                    <td class="center" rowspan="2"><strong>2</strong></td>
+                    <td><strong>Problem Statement and Objectives</strong></td>
+                    <td class="center"><strong>2</strong></td>
+                </tr>
+                <tr><td>2.1: Problem Statement &nbsp;|&nbsp; 2.2: Objectives</td><td class="center">2</td></tr>
+                <tr>
+                    <td class="center" rowspan="3"><strong>3</strong></td>
+                    <td><strong>Existing System and Proposed System</strong></td>
+                    <td class="center"><strong>3</strong></td>
+                </tr>
+                <tr><td>3.1: Existing System &nbsp;|&nbsp; 3.2: Proposed System</td><td class="center">3</td></tr>
+                <tr><td>3.3: Comparison of Systems</td><td class="center">3</td></tr>
+                <tr>
+                    <td class="center" rowspan="3"><strong>4</strong></td>
+                    <td><strong>System Requirements</strong></td>
+                    <td class="center"><strong>4</strong></td>
+                </tr>
+                <tr><td>4.1: Functional Requirements &nbsp;|&nbsp; 4.2: Non-Functional Requirements</td><td class="center">4</td></tr>
+                <tr><td>4.3: Hardware and Software Requirements</td><td class="center">5</td></tr>
+                <tr>
+                    <td class="center" rowspan="4"><strong>5</strong></td>
+                    <td><strong>System Design</strong></td>
+                    <td class="center"><strong>6</strong></td>
+                </tr>
+                <tr><td>5.1: Solution Design &nbsp;|&nbsp; 5.2: System Architecture</td><td class="center">6</td></tr>
+                <tr><td>5.3: System Workflow &nbsp;|&nbsp; 5.4: Module Description</td><td class="center">7</td></tr>
+                <tr><td>5.5: Key Heuristic Features</td><td class="center">8</td></tr>
+                <tr>
+                    <td class="center" rowspan="4"><strong>6</strong></td>
+                    <td><strong>Implementation</strong></td>
+                    <td class="center"><strong>9</strong></td>
+                </tr>
+                <tr><td>6.1: Technology Stack &nbsp;|&nbsp; 6.2: Implementation Details</td><td class="center">9</td></tr>
+                <tr><td>6.3: Sender Heuristics &nbsp;|&nbsp; 6.4: Safe Offline URL Forensics</td><td class="center">10</td></tr>
+                <tr><td>6.5: User Interface & Telemetry</td><td class="center">10</td></tr>
+                <tr><td class="center"><strong>7</strong></td><td><strong>Results and Output Screens</strong></td><td class="center"><strong>11</strong></td></tr>
+                <tr><td class="center"><strong>8</strong></td><td><strong>Testing</strong> (8.1: Approach &nbsp;|&nbsp; 8.2: Test Cases)</td><td class="center"><strong>14</strong></td></tr>
+                <tr><td class="center"><strong>9</strong></td><td><strong>Impact, Challenges and Future Enhancements</strong></td><td class="center"><strong>15</strong></td></tr>
+                <tr><td class="center"><strong>10</strong></td><td><strong>Conclusion</strong></td><td class="center"><strong>16</strong></td></tr>
+                <tr><td class="center"></td><td><strong>References</strong></td><td class="center">17</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 5: LIST OF ABBREVIATIONS
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num-roman">vii</span>
+        <h1 style="font-size: 14pt; text-align: center; margin-bottom: 25px;">LIST OF ABBREVIATIONS</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Abbreviation</th>
+                    <th style="width: 75%;">Full Form</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="center"><strong>AI</strong></td><td>Artificial Intelligence</td></tr>
+                <tr><td class="center"><strong>API</strong></td><td>Application Programming Interface</td></tr>
+                <tr><td class="center"><strong>BEC</strong></td><td>Business Email Compromise</td></tr>
+                <tr><td class="center"><strong>CSS</strong></td><td>Cascading Style Sheets</td></tr>
+                <tr><td class="center"><strong>DNS</strong></td><td>Domain Name System</td></tr>
+                <tr><td class="center"><strong>HTML</strong></td><td>HyperText Markup Language</td></tr>
+                <tr><td class="center"><strong>HTTP / HTTPS</strong></td><td>HyperText Transfer Protocol / Secure</td></tr>
+                <tr><td class="center"><strong>IoC</strong></td><td>Indicator of Compromise</td></tr>
+                <tr><td class="center"><strong>IP / IPv4</strong></td><td>Internet Protocol / Version 4</td></tr>
+                <tr><td class="center"><strong>IT</strong></td><td>Information Technology</td></tr>
+                <tr><td class="center"><strong>JS</strong></td><td>JavaScript</td></tr>
+                <tr><td class="center"><strong>MFA</strong></td><td>Multi-Factor Authentication</td></tr>
+                <tr><td class="center"><strong>MitM</strong></td><td>Man-in-the-Middle</td></tr>
+                <tr><td class="center"><strong>REST</strong></td><td>Representational State Transfer</td></tr>
+                <tr><td class="center"><strong>RFC</strong></td><td>Request for Comments</td></tr>
+                <tr><td class="center"><strong>SLD</strong></td><td>Second-Level Domain</td></tr>
+                <tr><td class="center"><strong>SOC</strong></td><td>Security Operations Center</td></tr>
+                <tr><td class="center"><strong>TLD</strong></td><td>Top-Level Domain</td></tr>
+                <tr><td class="center"><strong>UI / UX</strong></td><td>User Interface / User Experience</td></tr>
+                <tr><td class="center"><strong>URL</strong></td><td>Uniform Resource Locator</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 6: CHAPTER 1 - INTRODUCTION
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">1</span>
+        <div class="chapter-heading">CHAPTER 1</div>
+        <div class="chapter-title">INTRODUCTION</div>
+
+        <div class="section-heading">1.1 Background</div>
+        <p>
+            Email represents the foundational backbone of digital communication across academia, business, and daily life. 
+            With billions of emails exchanged daily, email architecture remains inherently trusting, as the original 
+            Simple Mail Transfer Protocol (SMTP) lacked native identity verification. Cyber adversaries exploit this 
+            architectural weakness to conduct phishing, impersonation, and social engineering attacks, causing severe 
+            financial and operational damage worldwide.
+        </p>
+
+        <div class="section-heading">1.2 Overview of the Project</div>
+        <p>
+            <strong>CyberSentinel AI — Email Threat Detection System</strong> is a lightweight, explainable cybersecurity 
+            web application developed with Python and Flask. The platform enables users to submit sender email addresses 
+            and suspicious message text for automated multi-vector heuristic analysis. The system inspects sender 
+            anomalies, detects psychological coercion tactics, performs safe offline URL deconstruction, and calculates 
+            a normalized 0–100 Risk Score with full explainability.
+        </p>
+
+        <div class="section-heading">1.3 Need for the Project</div>
+        <ul>
+            <li><strong>Exploitation of Human Trust:</strong> Attackers target emotional urgency rather than system vulnerabilities.</li>
+            <li><strong>Opaque Spam Filters:</strong> Traditional email filters tag spam without educating users on the underlying threat indicators.</li>
+            <li><strong>Complex Enterprise Systems:</strong> Commercial Security Email Gateways require expensive corporate routing and licenses.</li>
+            <li><strong>Safe Educational Sandbox:</strong> IT students require an offline environment to safely study phishing heuristics without malware execution risk.</li>
+        </ul>
+
+        <div class="section-heading">1.4 Scope of the Project</div>
+        <p>
+            The project delivers a standalone web application featuring interactive form inputs, 1-click test datasets, 
+            transparent rule-based scoring, offline URL analysis, and a RESTful API. It operates entirely locally on 
+            Windows 11 without accessing private inboxes or sending outbound emails, guaranteeing absolute privacy and safety.
+        </p>
+
+        <div class="section-heading">1.5 Organization of the Report</div>
+        <p>
+            Chapter 2 outlines the problem statement and objectives. Chapter 3 evaluates existing and proposed systems. 
+            Chapter 4 defines system requirements. Chapter 5 details system design and architecture. Chapter 6 describes 
+            implementation. Chapter 7 presents results and screens. Chapter 8 details testing. Chapter 9 covers impact 
+            and future enhancements, followed by the conclusion and references.
+        </p>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 7: CHAPTER 2 - PROBLEM STATEMENT AND OBJECTIVES
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">2</span>
+        <div class="chapter-heading">CHAPTER 2</div>
+        <div class="chapter-title">PROBLEM STATEMENT AND OBJECTIVES</div>
+
+        <div class="section-heading">2.1 Problem Statement</div>
+        <p>
+            Email users face persistent social engineering attacks where attackers manipulate cognitive biases—such 
+            as urgency, fear of financial loss, or curiosity—to extract sensitive passwords or induce wire transfers. 
+            Existing desktop and cloud spam filters operate as opaque black boxes, providing zero visibility into 
+            why a message was classified as dangerous. Novice users cannot distinguish legitimate corporate domains 
+            from typosquatted variations (e.g., <code>paypa1-support.xyz</code>) or recognize lookalike subdomains 
+            (e.g., <code>login.microsoft.com.attacker.com</code>). There is an urgent need for an explainable, 
+            interactive email threat analysis system that educates users while evaluating threats safely offline.
+        </p>
+
+        <div class="section-heading">2.2 Objectives</div>
+        <ol>
+            <li>Develop an intuitive web interface adhering to modern Security Operations Center (SOC) aesthetics.</li>
+            <li>Implement regular-expression heuristic rules to detect credential harvesting and financial coercion.</li>
+            <li>Analyze sender addresses for lookalike domains, free-mail brand impersonation, and disposable TLDs.</li>
+            <li>Build a safe offline URL forensic engine to inspect direct IP hosts, URL shorteners, and deceptive subdomains without external network pings.</li>
+            <li>Formulate an explainable Risk Score (0–100) that avoids false convictions on single isolated indicators.</li>
+            <li>Incorporate preloaded 1-click sample emails covering phishing, BEC, scams, and legitimate baselines.</li>
+            <li>Deliver actionable incident response remediation advice based on calculated risk levels.</li>
+            <li>Provide a lightweight REST API endpoint for automated and programmatic analysis.</li>
+        </ol>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 8: CHAPTER 3 - EXISTING AND PROPOSED SYSTEM
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">3</span>
+        <div class="chapter-heading">CHAPTER 3</div>
+        <div class="chapter-title">EXISTING SYSTEM AND PROPOSED SYSTEM</div>
+
+        <div class="section-heading">3.1 Existing System</div>
+        <p>
+            Traditional defenses rely on commercial Secure Email Gateways (SEGs) or standard desktop spam folders. 
+            These systems suffer from significant educational and operational limitations:
+        </p>
+        <ul>
+            <li>Opaque classification: Messages are marked as "Spam" without line-by-line justification.</li>
+            <li>High barrier to entry: Enterprise email gateways require complex MX record changes and paid subscriptions.</li>
+            <li>Unsafe link testing: Users must manually open links in a browser to inspect them, risking drive-by malware.</li>
+            <li>Binary scoring: Fails to teach students the subtle differences between weak caution flags and critical threats.</li>
+        </ul>
+
+        <div class="section-heading">3.2 Proposed System</div>
+        <p>
+            The proposed <strong>CyberSentinel AI</strong> replaces opaque filtering with a transparent, educational workflow: 
+            Telemetry Ingestion &rarr; Heuristic Parsing &rarr; Safe Offline URL Forensics &rarr; Weighted Synthesis &rarr; Explainable Reporting.
+        </p>
+
+        <div class="table-caption">Table 1: Comparison of Existing and Proposed Systems</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Aspect</th>
+                    <th style="width: 37%;">Existing System</th>
+                    <th style="width: 38%;">Proposed System (CyberSentinel AI)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Analysis Logic</strong></td>
+                    <td>Proprietary black-box algorithms</td>
+                    <td>Transparent, explainable rule-based heuristics</td>
+                </tr>
+                <tr>
+                    <td><strong>URL Inspection</strong></td>
+                    <td>Requires active web connection or sandbox</td>
+                    <td>100% safe offline syntactic & domain parsing</td>
+                </tr>
+                <tr>
+                    <td><strong>User Feedback</strong></td>
+                    <td>Binary label ("Spam" / "Not Spam")</td>
+                    <td>Detailed rationale for every flagged indicator</td>
+                </tr>
+                <tr>
+                    <td><strong>Domain Spoofing</strong></td>
+                    <td>Checks SPF/DKIM only</td>
+                    <td>Catches typosquatting & subdomain brand spoofing</td>
+                </tr>
+                <tr>
+                    <td><strong>Educational Value</strong></td>
+                    <td>Low (No reasoning provided)</td>
+                    <td>High (Designed for IT undergraduate learning)</td>
+                </tr>
+                <tr>
+                    <td><strong>Setup Complexity</strong></td>
+                    <td>Requires corporate mail server setup</td>
+                    <td>Zero setup local Flask development server</td>
+                </tr>
+                <tr>
+                    <td><strong>Multi-Indicator Logic</strong></td>
+                    <td>May aggressively flag single indicators</td>
+                    <td>Differentiates single cautions from multi-threats</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 9: CHAPTER 4 - SYSTEM REQUIREMENTS
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">4</span>
+        <div class="chapter-heading">CHAPTER 4</div>
+        <div class="chapter-title">SYSTEM REQUIREMENTS</div>
+
+        <div class="section-heading">4.1 Functional Requirements</div>
+        <p class="no-indent"><strong>Input & Telemetry Module:</strong></p>
+        <ul>
+            <li>Input fields for sender email address and raw email body content.</li>
+            <li>One-click pre-fill buttons for 5 realistic test scenarios.</li>
+            <li>Form reset button to clear inputs and state immediately.</li>
+        </ul>
+
+        <p class="no-indent"><strong>Heuristic Threat Engine Module:</strong></p>
+        <ul>
+            <li>Inspect sender domain for disposable TLDs (`.xyz`, `.top`, `.tk`) and lookalike brand combinations.</li>
+            <li>Scan text for credential solicitation, wire transfer pressure, and artificial time constraints.</li>
+        </ul>
+
+        <p class="no-indent"><strong>Safe Offline URL Forensic Module:</strong></p>
+        <ul>
+            <li>Extract embedded URLs and decompose into scheme, host, port, and path offline.</li>
+            <li>Detect direct IPv4 hosts, URL shorteners, subdomain brand deception, and unencrypted HTTP login paths.</li>
+        </ul>
+
+        <p class="no-indent"><strong>Scoring & Reporting Module:</strong></p>
+        <ul>
+            <li>Compute normalized Risk Score (0–100) and assign Safe, Suspicious, or High Risk badges.</li>
+            <li>Display individual URL cards detailing exact flagged reasons and security insights.</li>
+        </ul>
+
+        <div class="section-heading">4.2 Non-Functional Requirements</div>
+        <ul>
+            <li><strong>Usability:</strong> Responsive SOC-themed dark interface with high visual contrast.</li>
+            <li><strong>Safety & Offline Guarantee:</strong> Zero outbound network connections to prevent accidental malware visits.</li>
+            <li><strong>Performance:</strong> Instant heuristic processing delivering complete reports in under 50ms.</li>
+            <li><strong>Maintainability:</strong> Clean, well-commented Python code using modular design.</li>
+        </ul>
+
+        <div class="section-heading">4.3 Hardware and Software Requirements</div>
+        <div class="table-caption">Table 2: Hardware and Software Requirements</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 30%;">Item</th>
+                    <th style="width: 70%;">Specification</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Processor</strong></td><td>Intel Core i3 / AMD Ryzen 3 or above</td></tr>
+                <tr><td><strong>RAM</strong></td><td>4 GB minimum (8 GB recommended)</td></tr>
+                <tr><td><strong>Operating System</strong></td><td>Windows 10 / 11, Linux or macOS</td></tr>
+                <tr><td><strong>Programming Language</strong></td><td>Python 3.8 or higher</td></tr>
+                <tr><td><strong>Web Framework</strong></td><td>Flask 3.0.3</td></tr>
+                <tr><td><strong>Frontend Technologies</strong></td><td>HTML5, CSS3 (Vanilla), JavaScript (ES6)</td></tr>
+                <tr><td><strong>Core Libraries</strong></td><td><code>re</code> (Regex), <code>urllib.parse</code> (URL RFC parsing)</td></tr>
+                <tr><td><strong>Development Tools</strong></td><td>Visual Studio Code, Git and GitHub, Modern Web Browser</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 10: CHAPTER 5 - SYSTEM DESIGN
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">6</span>
+        <div class="chapter-heading">CHAPTER 5</div>
+        <div class="chapter-title">SYSTEM DESIGN</div>
+
+        <div class="section-heading">5.1 Solution Design</div>
+        <p>
+            CyberSentinel AI employs an explainable Model-View-Controller (MVC) architecture. All heuristic processing 
+            is contained on the server side, ensuring safe string manipulation without executing untrusted scripts. 
+            The solution emphasizes transparent, additive scoring where every point added to the threat meter is 
+            traceable to an identifiable rule trigger.
+        </p>
+
+        <div class="section-heading">5.2 System Architecture</div>
+        <pre class="diagram">
++-------------------------------------------------------------------------+
+|                         PRESENTATION TIER (UI)                          |
+|   +--------------------------+          +---------------------------+   |
+|   |   Telemetry Input Form   |          |   SOC Forensic Dashboard  |   |
+|   |  (Sender / Body Text)    |          |  (Score, Warnings, URLs)  |   |
+|   +------------+-------------+          +-------------^-------------+   |
++----------------|--------------------------------------|-----------------+
+                 | HTTP POST                            | Rendered Template
++----------------|--------------------------------------|-----------------+
+|                v        APPLICATION TIER (FLASK)      |                 |
+|   +---------------------------------------------------+-------------+   |
+|   |              Flask Controller (Route: '/')                      |   |
+|   |         - Sanitizes Form Data    - Coordinates Pipeline         |   |
+|   +------------------------------------+----------------------------+   |
++----------------------------------------|--------------------------------+
+                                         | Calls
++----------------------------------------v--------------------------------+
+|                        FORENSIC ENGINE TIER                             |
+|   +--------------------+  +---------------------+  +----------------+   |
+|   |  Sender Inspector  |  |  Pattern Matcher    |  | URL Forensics  |   |
+|   |  - TLD Analysis    |  |  - Credentials      |  | - IP Address   |   |
+|   |  - Free-mail Spoof |  |  - Wire / BEC       |  | - Shortener    |   |
+|   |  - Lookalikes      |  |  - Fear / Urgency   |  | - Subdomain    |   |
+|   +---------+----------+  +----------+----------+  +--------+-------+   |
+|             |                        |                      |           |
+|             +------------------------+----------------------+           |
+|                                      |                                  |
+|                                      v                                  |
+|                    +------------------------------------+               |
+|                    |   Weighted Risk Scoring Engine     |               |
+|                    |   (0-100 Score & Remediation)      |               |
+|                    +------------------------------------+               |
++-------------------------------------------------------------------------+
+        </pre>
+        <div class="table-caption">Figure 1: System Architecture of CyberSentinel AI</div>
+
+        <div class="section-heading">5.3 Workflow Description</div>
+        <p>
+            The workflow consists of five stages: (1) Input Ingestion via form or API; (2) Text normalization and URL extraction; 
+            (3) Parallel execution of sender inspection, text pattern matching, and safe offline URL forensics; 
+            (4) Multi-indicator scoring synthesis; and (5) Report rendering with visual indicators and incident response steps.
+        </p>
+
+        <div class="section-heading">5.4 Key Heuristic Modules</div>
+        <ul>
+            <li><strong>Sender Inspector (`inspect_sender`):</strong> Identifies brand typosquatting, high-risk TLDs, and free webmail impersonation.</li>
+            <li><strong>Text Pattern Matcher (`THREAT_PATTERNS`):</strong> Scans for credential harvesting, urgent payment demands, and fear tactics.</li>
+            <li><strong>URL Forensic Engine (`analyze_single_url`):</strong> Evaluates direct IP links, URL shorteners, and subdomain brand spoofing offline.</li>
+            <li><strong>Scoring Synthesizer (`analyze_email`):</strong> Aggregates weighted scores, caps at 100, and formulates defensive actions.</li>
+        </ul>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 11: CHAPTER 6 - IMPLEMENTATION
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">9</span>
+        <div class="chapter-heading">CHAPTER 6</div>
+        <div class="chapter-title">IMPLEMENTATION</div>
+
+        <div class="section-heading">6.1 Technology Stack</div>
+        <div class="table-caption">Table 3: Technology Stack Summary</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Layer</th>
+                    <th style="width: 30%;">Technology</th>
+                    <th style="width: 45%;">Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Frontend</td><td>HTML5 & CSS3</td><td>Semantic layout, responsive dark SOC theme</td></tr>
+                <tr><td>Client-side</td><td>JavaScript (ES6)</td><td>Instant sample loading & active button state</td></tr>
+                <tr><td>Backend</td><td>Python 3</td><td>Server logic, heuristic rules, URL parsing</td></tr>
+                <tr><td>Web Framework</td><td>Flask 3.0.3</td><td>Routing, form processing, template rendering</td></tr>
+                <tr><td>URL Parsing</td><td>Python <code>urllib.parse</code></td><td>RFC-compliant offline URL deconstruction</td></tr>
+                <tr><td>Pattern Matching</td><td>Python <code>re</code></td><td>Regex heuristic rule matching</td></tr>
+                <tr><td>Version Control</td><td>Git and GitHub</td><td>Source code management</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-heading">6.2 Implementation Details</div>
+        <p>
+            The application follows a client-server architecture. Flask routes handle GET requests for the main page 
+            and POST requests for analyzing email text. The user interface uses a cybersecurity dark theme with glassmorphism 
+            and dynamic animations. The URL forensic engine operates purely offline, decomposing links into components 
+            and checking them against known threat indicators without initiating network requests.
+        </p>
+
+        <div class="section-heading">6.3 Safe Offline URL Forensic Engine</div>
+        <p>
+            The URL forensic engine evaluates each extracted link using multi-indicator rules:
+        </p>
+        <ul>
+            <li><strong>Direct IPv4 Detection:</strong> Regex <code>^(\d{1,3}\.){3}\d{1,3}$</code> detects links hosting on raw IP addresses.</li>
+            <li><strong>URL Shortener Detection:</strong> Checks hostnames against known shorteners (<code>bit.ly</code>, <code>tinyurl.com</code>). Flagged as a single indicator of caution rather than conclusive proof of malware.</li>
+            <li><strong>Subdomain Brand Deception:</strong> Detects instances where high-value brands (e.g. `microsoft`) appear in subdomains while pointing to a foreign registered domain.</li>
+            <li><strong>Typosquatting Homoglyphs:</strong> Flags character substitutions such as `paypa1`, `micros0ft`, and `amaz0n`.</li>
+        </ul>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 12: CHAPTER 7 - RESULTS AND OUTPUT SCREENS
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">11</span>
+        <div class="chapter-heading">CHAPTER 7</div>
+        <div class="chapter-title">RESULTS AND OUTPUT SCREENS</div>
+
+        <p>
+            The working prototype was evaluated across five diverse email scenarios representing different threat vectors:
+        </p>
+
+        <div class="subsection-heading">Scenario 1: PayPal Account Suspension (Phishing Attack)</div>
+        <ul>
+            <li><strong>Sender:</strong> <code>security-alert@paypa1-support-portal.xyz</code></li>
+            <li><strong>Hyperlink:</strong> <code>http://192.168.1.105/paypal-login/verify.php</code></li>
+            <li><strong>Output:</strong> Risk Score = <strong>95 / 100 (Dangerous Phishing Probability)</strong>.</li>
+            <li><strong>Flagged Indicators:</strong> Brand typosquatting (`paypa1`), high-risk TLD (`.xyz`), direct IPv4 host, unencrypted HTTP on login path, credential harvesting language, and 24-hour urgency.</li>
+        </ul>
+
+        <div class="subsection-heading">Scenario 2: CEO Wire Transfer Fraud (Business Email Compromise)</div>
+        <ul>
+            <li><strong>Sender:</strong> <code>ceo.executive.office@gmail.com</code></li>
+            <li><strong>Hyperlink:</strong> None (Text-only social engineering)</li>
+            <li><strong>Output:</strong> Risk Score = <strong>75 / 100 (Dangerous Phishing Probability)</strong>.</li>
+            <li><strong>Flagged Indicators:</strong> Free webmail impersonating corporate leadership, immediate wire transfer demand, overdue invoice pressure. Correctly reports 0 URLs detected.</li>
+        </ul>
+
+        <div class="subsection-heading">Scenario 3: Lottery Jackpot Scam (Single URL Shortener Indicator)</div>
+        <ul>
+            <li><strong>Sender:</strong> <code>claims-department@euromillions-promo.tk</code></li>
+            <li><strong>Hyperlink:</strong> <code>http://bit.ly/claim-jackpot-reward-2026</code></li>
+            <li><strong>Output:</strong> Risk Score = <strong>55 / 100 (Suspicious / Medium Threat)</strong>.</li>
+            <li><strong>URL Verdict:</strong> Marked as <code>Suspicious (1 Indicator - Exercise Caution)</code>. The engine avoids false accusations, explicitly noting that a shortener alone requires verification rather than definitive proof of malice.</li>
+        </ul>
+
+        <div class="subsection-heading">Scenario 4: Microsoft 365 Subdomain Spoofing</div>
+        <ul>
+            <li><strong>Sender:</strong> <code>admin@office365-security-alert.xyz</code></li>
+            <li><strong>Hyperlink:</strong> <code>http://login.microsoft.com.account-verification-portal.xyz/auth/reset</code></li>
+            <li><strong>Output:</strong> Risk Score = <strong>90 / 100 (Dangerous Phishing Probability)</strong>.</li>
+            <li><strong>URL Verdict:</strong> Marked as <code>High Risk (3 Correlated Threat Indicators)</code>: Subdomain deception (`login.microsoft.com` prefix on foreign base domain), risky TLD (`.xyz`), and unencrypted HTTP on an auth path.</li>
+        </ul>
+
+        <div class="subsection-heading">Scenario 5: Legitimate Corporate Project Update (Safe Baseline)</div>
+        <ul>
+            <li><strong>Sender:</strong> <code>sarah.jenkins@acmecorp.com</code></li>
+            <li><strong>Hyperlink:</strong> <code>https://sharepoint.acmecorp.com/teams/q3-roadmap</code></li>
+            <li><strong>Output:</strong> Risk Score = <strong>0 / 100 (Safe / Low Threat)</strong>. 0 warnings, clean URL.</li>
+        </ul>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 13: CHAPTER 8 - TESTING
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">14</span>
+        <div class="chapter-heading">CHAPTER 8</div>
+        <div class="chapter-title">TESTING</div>
+
+        <div class="section-heading">8.1 Testing Approach</div>
+        <p>
+            Functional black-box testing was conducted on each module. Inputs with valid, invalid, and adversarial 
+            data were supplied, and the outputs were verified against expected cybersecurity results.
+        </p>
+
+        <div class="section-heading">8.2 Test Cases and Results</div>
+        <div class="table-caption">Table 4: Test Cases and Verification Results</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 8%;">No.</th>
+                    <th style="width: 27%;">Test Case</th>
+                    <th style="width: 47%;">Expected Result</th>
+                    <th style="width: 18%;">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="center">1</td>
+                    <td>Empty Form Submission</td>
+                    <td>Prompts user to provide email sender or body text</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">2</td>
+                    <td>Legitimate Email</td>
+                    <td>Score = 0/100, Badge = Safe, 0 threat warnings</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">3</td>
+                    <td>Free Mail Impersonation</td>
+                    <td>Flags critical warning: Brand impersonated via free email</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">4</td>
+                    <td>High-Risk Disposable TLD</td>
+                    <td>Flags high severity warning for disposable domain extension</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">5</td>
+                    <td>Credential Harvesting</td>
+                    <td>Flags critical warning for password or login verification demand</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">6</td>
+                    <td>Wire Transfer / BEC</td>
+                    <td>Flags critical warning for urgent wire transfer demand</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">7</td>
+                    <td>Direct IP Address URL</td>
+                    <td>Flags URL as high risk for direct IPv4 host</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">8</td>
+                    <td>URL Shortener Isolation</td>
+                    <td>Flags URL as Suspicious (1 Flag) with caution note; not malicious</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">9</td>
+                    <td>Subdomain Deception</td>
+                    <td>Detects brand in subdomain prefix pointing to foreign host</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">10</td>
+                    <td>Sample Auto-Fill</td>
+                    <td>Pre-fills sender and body instantly upon button click</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">11</td>
+                    <td>Form Reset</td>
+                    <td>Clears sender, textarea, and active sample state</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td class="center">12</td>
+                    <td>REST API Endpoint</td>
+                    <td>POST to <code>/api/analyze</code> returns 200 with full JSON metrics</td>
+                    <td class="center"><strong>Pass</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 14: CHAPTER 9 - IMPACT, CHALLENGES AND FUTURE ENHANCEMENTS
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">15</span>
+        <div class="chapter-heading">CHAPTER 9</div>
+        <div class="chapter-title">IMPACT, CHALLENGES AND FUTURE ENHANCEMENTS</div>
+
+        <div class="section-heading">9.1 Impact Analysis</div>
+        <ul>
+            <li><strong>For IT Students:</strong> Provides transparent insight into how social engineering and deceptive link structures operate.</li>
+            <li><strong>For Organizations:</strong> Serves as a zero-cost educational simulator to train staff on email phishing awareness.</li>
+            <li><strong>For Defensive Security:</strong> Demonstrates that explainable heuristics provide actionable intelligence without complex cloud dependencies.</li>
+        </ul>
+
+        <div class="section-heading">9.2 Challenges Faced</div>
+        <ul>
+            <li><strong>Punctuation Stripping in URLs:</strong> Cleaning trailing periods and brackets from conversational text without truncating valid URL parameters.</li>
+            <li><strong>Subdomain vs. SLD Discrimination:</strong> Differentiating legitimate multi-level domains (e.g. `teams.microsoft.com`) from deceptive subdomains (`microsoft.com.attacker.com`) offline without a live WHOIS database.</li>
+            <li><strong>False Positive Mitigation:</strong> Implementing single-indicator caution labeling to prevent shorteners from immediately triggering false malware alarms.</li>
+        </ul>
+
+        <div class="section-heading">9.3 Future Enhancements</div>
+        <ul>
+            <li>Integration of Machine Learning classifiers (Naive Bayes, Random Forest) trained on public datasets.</li>
+            <li>Header parsing for raw <code>.eml</code> files to inspect SPF, DKIM, and DMARC authentication records.</li>
+            <li>Sandboxed screenshot rendering using headless browser containers.</li>
+            <li>Packaging as a browser extension for direct client-side inbox protection.</li>
+        </ul>
+    </div>
+
+    <!-- ==========================================================================
+         PAGE 15: CHAPTER 10 - CONCLUSION & REFERENCES
+         ========================================================================== -->
+    <div class="report-page page-break">
+        <span class="page-num">16</span>
+        <div class="chapter-heading">CHAPTER 10</div>
+        <div class="chapter-title">CONCLUSION</div>
+
+        <p>
+            The <strong>CyberSentinel AI — Email Threat Detection System</strong> successfully delivers a transparent, 
+            explainable, and lightweight cybersecurity platform tailored for undergraduate IT students. By combining 
+            sender reputation heuristics, linguistic urgency analysis, and safe offline URL forensic deconstruction, 
+            the system effectively detects email threats while detailing exactly *why* each indicator was flagged.
+        </p>
+
+        <p>
+            Working on this project provided hands-on experience in full-stack Python/Flask development, regular expression 
+            engineering, network protocol parsing, UI/UX design, and defensive cybersecurity principles.
+        </p>
+
+        <p class="no-indent" style="text-align: center; font-weight: bold; margin-top: 25px; letter-spacing: 0.5px;">
+            INSPECT TELEMETRY &nbsp;|&nbsp; ANALYZE HEURISTICS &nbsp;|&nbsp; PREVENT PHISHING
+        </p>
+
+        <div style="margin-top: 45px;">
+            <div class="chapter-heading" style="font-size: 13pt;">REFERENCES</div>
+            <ol style="font-size: 10.5pt; line-height: 1.5; margin-top: 15px;">
+                <li><strong>Stallings, W.</strong> (2018). <em>Cryptography and Network Security: Principles and Practice</em> (7th ed.). Pearson Education.</li>
+                <li><strong>Hadnagy, C.</strong> (2018). <em>Social Engineering: The Science of Human Hacking</em> (2nd ed.). John Wiley & Sons.</li>
+                <li><strong>Grinberg, M.</strong> (2018). <em>Flask Web Development: Developing Web Applications with Python</em> (2nd ed.). O'Reilly Media.</li>
+                <li><strong>Berners-Lee, T., Fielding, R., & Masinter, L.</strong> (2005). <em>Uniform Resource Identifier (URI): Generic Syntax</em>. RFC 3986, IETF.</li>
+                <li><strong>APWG (Anti-Phishing Working Group)</strong>. (2025). <em>Phishing Activity Trends Report</em>. APWG Publications.</li>
+                <li><strong>Pallets Projects</strong>. (2024). <em>Flask Documentation (Version 3.0.x)</em>. Retrieved from https://flask.palletsprojects.com/</li>
+                <li><strong>Python Software Foundation</strong>. (2026). <em>Python 3 Documentation: <code>urllib.parse</code> and <code>re</code></em>. https://docs.python.org/3/</li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>
